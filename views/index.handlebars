@@ -1,0 +1,82 @@
+<header>
+  <nav class="navbar sticky-top navbar-info bg-info">
+    <a class="navbar-brand" href="/"><span class="text-light">The Verge News</span></a>
+  </nav>
+</header>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="text-center text-light">The Verge News Scraper</h1>
+  </div>
+</div>
+
+<div class="list-group">
+  {{#each news}}
+  <button type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#news-modal"
+    data-base-url={{this.linkURL}} data-db-id={{this._id}}>
+    <div class="card">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img class="card-img" src="{{this.image}}" alt="{{this.summary}} + Image">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{this.headline}}</h6>
+              <h6 class="card-text">"{{this.summary}}"</p>
+                <p class="card-text"><em>By: {{this.byline}}</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </button>
+  {{/each}}
+  <button type="button" class="list-group-item list-group-item-action">Clear Articles</button>
+</div>
+
+<div class="modal fade" id="news-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="news-modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="container button-wrapper" id="modal-btn-wrapper"></div>
+      <div class="wrapper-seperator"></div>
+      <div class="container">
+        <form>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="username" class="col-form-label">Commentor Name:</label>
+              </div>
+              <input type="text" class="form-control" id="username">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="add-comment-field" class="col-form-label">Add a Comment:</label>
+                <textarea class="form-control" id="add-comment-field"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="button-wrapper" id="comment-btn-wrapper">
+            <button type="submit" class="btn btn-info" id="add-comment-btn">Add Comment</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-body" id="news-modal-body">
+        <div class="news-modal-comments"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <nav class="navbar fixed-bottom navbar-info bg-info">
+    <button id="bookmark-btn" class="btn btn-success">View Bookmarked Articles</button>
+    <button id="scrape-btn" class="btn btn-danger">Scrape Articles</button>
+  </nav>
+</footer>

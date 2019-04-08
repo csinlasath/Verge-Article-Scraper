@@ -1,0 +1,26 @@
+.bookmark-btn {
+    width: 100%;
+}
+
+.button-wrapper {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.list-group {
+    margin-bottom: 200px;
+}
+
+#add-comment-btn {
+    margin-bottom: -5px;
+    width: 100%;
+}
+
+.modal-footer {
+    text-align: center;
+}
+
+.wrapper-seperator {
+    border-bottom:lightgray 1px solid;
+    margin-bottom: 10px;
+}
