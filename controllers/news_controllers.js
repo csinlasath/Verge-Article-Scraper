@@ -99,4 +99,16 @@ router.get("/news/remove/all", (req, res) => {
     });
 });
 
+router.get("/comment/remove/:id", (req, res) => {
+    db.Article.update({}).then((dbNews) => {
+        console.log(dbNews);
+        db.Comment.remove({}).then((dbComments) => {
+            console.log(dbComments);
+            res.redirect("/");
+        });
+    }).catch((err) => {
+        console.error(err);
+    });
+});
+
 module.exports = router;
