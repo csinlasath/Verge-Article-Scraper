@@ -66,7 +66,6 @@ $(document).ready(function () {
             submitButton.text("Add Comment");
             $("#comment-btn-wrapper").append(submitButton);
 
-            console.log(res);
             if (res.comments.length !== 0) {
                 for (let i = 0; i < res.comments.length; i++) {
                     if (i === 0) {
@@ -88,20 +87,35 @@ $(document).ready(function () {
     $(document).on("click", "#add-comment-btn", function (e) {
         e.preventDefault();
 
-        let queryURL = `/news/${$(this).attr("data-db-id")}`;
-        $.ajax({
-            method: "POST",
-            url: queryURL,
-            data: {
-                username: $("#username").val().trim(),
-                commentBody: $("#add-comment-field").val().trim()
-            }
-        }).then(function (res) {
-            console.log(res);
-            $("#username").val("");
-            $("#add-comment-field").val("");
-            $("#news-modal").modal("hide");
-        });
+        let usernameField = $("#username").val().trim();
+        let commentField = $("#add-comment-field").val().trim();
+        let commentCheck = true;
+
+        if (usernameField === "") {
+            usernameField = "Anonymous";
+        }
+
+        if (commentField === "") {
+            commentCheck = false;
+            alert("No comment entered.  Please type a comment");
+        }
+
+        if (commentCheck === true) {
+            let queryURL = `/news/${$(this).attr("data-db-id")}`;
+            $.ajax({
+                method: "POST",
+                url: queryURL,
+                data: {
+                    username: usernameField,
+                    commentBody: commentField
+                }
+            }).then(function (res) {
+                console.log(res);
+                $("#username").val("");
+                $("#add-comment-field").val("");
+                $("#news-modal").modal("hide");
+            });
+        }
     });
 
     $(document).on("click", ".bookmark-btn", function (e) {

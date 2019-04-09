@@ -61,7 +61,7 @@ router.get("/", (req, res) => {
 router.post("/news/:id", (req, res) => {
     db.Comment.create(req.body).then(function(dbComments) {
         console.log(dbComments);
-        return db.Article.findOneAndUpdate({ _id: req.params.id}, { comments: dbComments._id}, { new: true });
+        return db.Article.findOneAndUpdate({ _id: req.params.id}, {$push: { comments: dbComments._id} }, { new: true });
     }).then(function(dbNews) {
       res.json(dbNews);  
     }).catch((err) => {
@@ -90,7 +90,10 @@ router.get("/news/removebookmark/:id", (req, res) => {
 router.get("/news/remove/all", (req, res) => {
     db.Article.remove({}).then((dbNews) => {
         console.log(dbNews);
-        res.redirect("/");
+        db.Comment.remove({}).then((dbComments) => {
+            console.log(dbComments);
+            res.redirect("/");
+        });
     }).catch((err) => {
         console.error(err);
     });
