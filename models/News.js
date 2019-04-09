@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const NewsSchema = new Schema({
     headline: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     byline: {
         type: String,
@@ -23,10 +24,14 @@ const NewsSchema = new Schema({
         type: String,
         required: true
     },
-    comments: {
+    bookmarked: {
+        type: Boolean,
+        required: false
+    },
+    comments: [{
         type: Schema.Types.ObjectId,
-        ref: "Comments"
-    }
+        ref: "Comment"
+    }]
 });
 
 const Article = mongoose.model("News", NewsSchema);

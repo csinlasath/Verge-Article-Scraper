@@ -21,9 +21,9 @@ router.get("/scrape", (req, res) => {
                 result.linkURL = articleURL;
                 result.summary = $(".l-segment .c-entry-hero").children(".c-entry-summary").text();
                 result.image = $(".e-image__image .c-picture").children("img").attr("src");
+                result.bookmarked = false;
 
                 if (result.headline !== "Careers") {
-                    console.log(`--------------------------------`);
                     db.Article.create(result).then((dbArticle) => {
                         console.log(dbArticle)
                     }).catch((err) => {
@@ -32,8 +32,11 @@ router.get("/scrape", (req, res) => {
                 }
             });
         });
-    }).then(() => {
-        res.redirect("/");
+    });
+    db.Article.find({}).then((dbNews) => {
+        res.json(dbNews)
+    }).catch((err) => {
+        console.error(err);
     });
 });
 router.get("/news/:id", (req, res) => {
@@ -56,12 +59,38 @@ router.get("/", (req, res) => {
 });
 
 router.post("/news/:id", (req, res) => {
-    db.Comment.create(req.body).then((dbComments) => {
-        console.log(req.body);
+    db.Comment.create(req.body).then(function(dbComments) {
         console.log(dbComments);
-        return db.Article.findOneAndUpdate({ _id: req.params.id}, { comment: dbComments._id}, { new: true});
-    }).then((dbNews) => {
+        return db.Article.findOneAndUpdate({ _id: req.params.id}, { comments: dbComments._id}, { new: true });
+    }).then(function(dbNews) {
       res.json(dbNews);  
+    }).catch((err) => {
+        console.error(err);
+    });
+});
+
+router.get("/news/bookmark/:id", (req, res) => {
+    db.Article.findOneAndUpdate({_id: req.params.id}, { bookmarked: true }).then((dbNews) => {
+        console.log(dbNews);
+        res.json(dbNews);
+    }).catch((err) => {
+        console.error(err)
+    });
+});
+
+router.get("/news/removebookmark/:id", (req, res) => {
+    db.Article.findOneAndUpdate({_id: req.params.id}, { bookmarked: false }).then((dbNews) => {
+        console.log(dbNews);
+        res.json(dbNews);
+    }).catch((err) => {
+        console.error(err)
+    });
+});
+
+router.get("/news/remove/all", (req, res) => {
+    db.Article.remove({}).then((dbNews) => {
+        console.log(dbNews);
+        res.redirect("/");
     }).catch((err) => {
         console.error(err);
     });

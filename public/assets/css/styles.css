@@ -1,5 +1,19 @@
-.bookmark-btn {
+
+#add-comment-btn {
+    margin-bottom: -5px;
     width: 100%;
+}
+
+.bookmark-btn, .view-btn, .remove-bookmark-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.bottom-nav {
+    border-top: 1px solid #ffffff;
+    height: 200px;
+    width: 100%;
+
 }
 
 .button-wrapper {
@@ -7,17 +21,41 @@
     margin-top: 20px;
 }
 
+footer {
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+h2 {
+    margin: 0 auto;
+    text-align: center;
+}
+
 .list-group {
     margin-bottom: 200px;
 }
 
-#add-comment-btn {
-    margin-bottom: -5px;
-    width: 100%;
-}
-
 .modal-footer {
     text-align: center;
+}
+
+.nav-btn {
+    float: left;
+    width: 33%;
+}
+
+.no-content {
+    height: 1500px;
+}
+
+.top-nav {
+    border-top: 1px solid #ffffff;
+    margin-top: -40px;
+    border-bottom: 1px solid #ffffff;
+
 }
 
 .wrapper-seperator {
